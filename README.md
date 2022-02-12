@@ -1,8 +1,8 @@
 # poc-pomodoro-cronometro
+Cronometro pomodoro customizavel.
 
 ![alt text](https://raw.githubusercontent.com/bennotti/poc-pomodoro-cronometro/main/docs/print_principal.png?raw=true)
 
-Cronometro pomodoro customizavel.
 
 Funcionalidades:
 - falar frase/palavra quando o cronometro chegar a zero
