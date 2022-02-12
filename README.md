@@ -1,7 +1,9 @@
 # poc-pomodoro-cronometro
 Cronometro pomodoro customizavel.
 
-![alt text](https://raw.githubusercontent.com/bennotti/poc-pomodoro-cronometro/main/docs/print_principal.png?raw=true)
+![Tela principal](https://raw.githubusercontent.com/bennotti/poc-pomodoro-cronometro/main/docs/print_principal.png?raw=true)
+
+[![Execução](https://img.youtube.com/vi/AYrFgJ1MrsI/0.jpg)](https://www.youtube.com/watch?v=AYrFgJ1MrsI)
 
 
 Funcionalidades:
