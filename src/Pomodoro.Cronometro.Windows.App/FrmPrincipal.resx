@@ -57,14 +57,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnNovo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAIFJREFUOE+9
+        k9EJgCAURYWmaoJaoEHaoOinWRqkteqej0CePg2SDhywx/VCoqElndzkkXGWVUZ5Sbv5lMwXWWSSBC3P
+        HHcGHm8KiiVvC3CQCV6BhQzZhKYFnD7rWGbAulrQS75jmcE/BZ9/oYRb4F1lK5nsPeAxrTK3KZYM2RaE
+        cAOZp0jAgtzlCQAAAABJRU5ErkJggg==
+</value>
+  </data>
   <metadata name="tmrHora.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnConfiguracao.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
-        cgAAAHIBsYahGgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAD1SURBVDhPtZNL
+        cAAAAHABznhikwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAD1SURBVDhPtZNL
         agJREEWFSKJbcBAVF6FE3ICTJIqfgStykC0YBH+IZBUZuKIkiui5XV2P5plBO/DAgdtFe6VfVxfgCV9x
         kPqMjnLNYkD3Ny0ab3jOuEBnjmuLgS4esZhcwRD1Q7HBrcWEFe4sBvwPH5MruFtBC79xjy8apOQu+EHN
         5QEfUFwVxIe4RHHCMfZQcz+0q4IS+vADqyhyFzga6nGc/woqOE2v+6idCOQpmKXZ1eIF4oJf9Bu1ODpE
@@ -72,4 +80,25 @@
         bcoNMQAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="btnAbrir.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAGZJREFUOE9j
+        GDSAGYg9gTgUCbsDMdGgGYj/Y8ENQEwUWAXE2AzAhT8DsT8QwwHIgONAjOwFfBikdjkQwwHIABAmFmCo
+        HzWACgY0ATG2+MaHG4EYDkBJ2QOIscU5NgxSC9Iz4ICBAQD94TtyfSsvOgAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="btnSalvar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAKVJREFUOE/N
+        jk0OAUEQRidxBydwAhzDVuInYeMaLmQhzmJrb4OFnQ3mPW1kxvQMCYt5yUuqqqu/7qRRTPGE9wrPOMBK
+        vNzFFQ4d5LDf4h4XDmL4ihgwCuULe+cd3OESS2QBc7xg/vv2M5Q2XkNZJAv4huju3wI2aB1zjWJdIhve
+        sBXKAs48k9qA6OGT2p2fA47Yw08BfTw8ujcmaIhLdbozxkaQJCk7fUFTsy5iEQAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <metadata name="saveDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>114, 17</value>
+  </metadata>
+  <metadata name="openDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>250, 17</value>
+  </metadata>
 </root>

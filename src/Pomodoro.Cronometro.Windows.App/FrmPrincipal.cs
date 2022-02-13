@@ -1,4 +1,5 @@
 ﻿using Pomodoro.Cronometro.Windows.App.Dtos;
+using Pomodoro.Cronometro.Windows.App.Enum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,29 +7,23 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Speech.Synthesis;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Pomodoro.Cronometro.Windows.App
 {
-    public enum TipoExecucaoCronometro
-    {
-        Nenhum = 0,
-        Pomodoro = 1,
-        ParadaCurta = 2,
-        ParadaLonga = 3,
-    }
-    public enum TipoExecucaoTempo
-    {
-        Segundos = 0,
-        Minutos = 1,
-        Horas = 2,
-    }
     public partial class FrmPrincipal : Form
     {
+        private TaskPomodoroJsonDto _taskDocument;
+
+        private bool _taskAlterada = false;
+        private string _arquivoJson = string.Empty;
+
         TipoExecucaoCronometro _tipoExecucao = TipoExecucaoCronometro.Nenhum;
         bool _cronometroLigado = false;
         string _valorCronometro = "00:00";
@@ -36,33 +31,21 @@ namespace Pomodoro.Cronometro.Windows.App
         DateTime? _dataAlvoFim = null;
         TimeSpan? _cronometro = null;
 
-        int _qntPomodoros = 0;
-        int _qntParadasCurtas = 0;
-        int _qntParadasLongas = 0;
-
         private readonly SpeechSynthesizer _synthesizer = null;
         PromptBuilder _builder = null;
         private readonly FrmConfiguracao _frmConfiguracao;
 
-        string _textoConclusao = "Você chegou ao seu destino.";
-        int _tempoPomodoro = 25;
-        int _tempoParadaCurta = 5;
-        int _tempoParadaLonga = 15;
-        TipoExecucaoTempo _tipoTempoPomodoro = TipoExecucaoTempo.Minutos;
-        TipoExecucaoTempo _tipoTempoParadaCurta = TipoExecucaoTempo.Minutos;
-        TipoExecucaoTempo _tipoTempoParadaLonga = TipoExecucaoTempo.Minutos;
-
         public FrmPrincipal(FrmConfiguracao frmConfiguracao)
         {
             InitializeComponent();
-
+            _taskDocument = new TaskPomodoroJsonDto();
             _synthesizer = new SpeechSynthesizer();
             _synthesizer.SetOutputToDefaultAudioDevice();
             _synthesizer.Rate = 3;
             _synthesizer.Volume = 100;
             _builder = new PromptBuilder();
             _builder.StartVoice(new CultureInfo("pt-BR"));
-            _builder.AppendText(_textoConclusao);
+            _builder.AppendText(_taskDocument.TextoConclusao);
             _builder.EndVoice();
             _frmConfiguracao = frmConfiguracao;
         }
@@ -70,31 +53,59 @@ namespace Pomodoro.Cronometro.Windows.App
         private void btnConfiguracao_Click(object sender, EventArgs e)
         {
             var response = _frmConfiguracao.ShowDialog(new ConfiguracaoCronometroDto {
-                TextoConclusao = _textoConclusao,
-                TempoPomodoro = _tempoPomodoro,
-                TempoParadaCurta = _tempoParadaCurta,
-                TempoParadaLonga = _tempoParadaLonga,
-                IndexTipoTempoPomodoro = (int)_tipoTempoPomodoro,
-                IndexTipoTempoParadaCurta = (int)_tipoTempoParadaCurta,
-                IndexTipoTempoParadaLonga = (int)_tipoTempoParadaLonga,
+                TextoConclusao = _taskDocument.TextoConclusao,
+                TempoPomodoro = _taskDocument.TempoPomodoro,
+                TempoParadaCurta = _taskDocument.TempoParadaCurta,
+                TempoParadaLonga = _taskDocument.TempoParadaLonga,
+                IndexTipoTempoPomodoro = (int)_taskDocument.TipoTempoPomodoro,
+                IndexTipoTempoParadaCurta = (int)_taskDocument.TipoTempoParadaCurta,
+                IndexTipoTempoParadaLonga = (int)_taskDocument.TipoTempoParadaLonga,
             });
 
             if (response == DialogResult.OK) {
-                _tempoPomodoro = _frmConfiguracao.TempoPomodoro;
-                _tempoParadaCurta = _frmConfiguracao.TempoParadaCurta;
-                _tempoParadaLonga = _frmConfiguracao.TempoParadaLonga;
+                _taskDocument.TempoPomodoro = _frmConfiguracao.TempoPomodoro;
+                _taskDocument.TempoParadaCurta = _frmConfiguracao.TempoParadaCurta;
+                _taskDocument.TempoParadaLonga = _frmConfiguracao.TempoParadaLonga;
 
-                _tipoTempoPomodoro = (TipoExecucaoTempo)_frmConfiguracao.TipoTempoPomodoro;
-                _tipoTempoParadaCurta = (TipoExecucaoTempo)_frmConfiguracao.TipoTempoParadaCurta;
-                _tipoTempoParadaLonga = (TipoExecucaoTempo)_frmConfiguracao.TipoTempoParadaLonga;
+                _taskDocument.TipoTempoPomodoro = (TipoExecucaoTempo)_frmConfiguracao.TipoTempoPomodoro;
+                _taskDocument.TipoTempoParadaCurta = (TipoExecucaoTempo)_frmConfiguracao.TipoTempoParadaCurta;
+                _taskDocument.TipoTempoParadaLonga = (TipoExecucaoTempo)_frmConfiguracao.TipoTempoParadaLonga;
 
-                _textoConclusao = _frmConfiguracao.TextoConclusao;
+                _taskDocument.TextoConclusao = _frmConfiguracao.TextoConclusao;
 
                 _builder = new PromptBuilder();
                 _builder.StartVoice(new CultureInfo("pt-BR"));
-                _builder.AppendText(_textoConclusao);
+                _builder.AppendText(_taskDocument.TextoConclusao);
                 _builder.EndVoice();
             }
+        }
+
+        TimeSpan ObterTempo(TipoExecucaoTempo tipoTempo, int tempo) 
+        {
+            var response = new TimeSpan(0, 0, 0);
+            switch (tipoTempo)
+            {
+                case TipoExecucaoTempo.Segundos:
+                    {
+                        response = new TimeSpan(0, 0, tempo);
+                        break;
+                    }
+                case TipoExecucaoTempo.Minutos:
+                    {
+                        response = new TimeSpan(0, tempo, 0);
+                        break;
+                    }
+                case TipoExecucaoTempo.Horas:
+                    {
+                        response = new TimeSpan(tempo, 0, 0);
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+            return response;
         }
 
         void ConcluirCronometro()
@@ -103,18 +114,48 @@ namespace Pomodoro.Cronometro.Windows.App
             {
                 _synthesizer.Speak(_builder);
             }
-
-            switch(_tipoExecucao) {
+            ExecucaoTempoDto execucao;
+            switch (_tipoExecucao) {
                 case TipoExecucaoCronometro.Pomodoro: {
-                    _qntPomodoros += 1;
+                    _taskDocument.TotalPomodoros += 1;
+                    execucao = new ExecucaoTempoDto
+                    {
+                        TipoExecucao = _taskDocument.TipoTempoPomodoro,
+                        Tempo = _taskDocument.TempoPomodoro,
+                        ValorTimeSpan = ObterTempo(_taskDocument.TipoTempoPomodoro, _taskDocument.TempoPomodoro)
+                    };
+                    _taskDocument.ExecucoesPomodoro.Add(execucao);
+                    _taskDocument.TotalTempoPomodoro = _taskDocument.TotalTempoPomodoro.Add(
+                        execucao.ValorTimeSpan
+                    );
                     break;
                 }
                 case TipoExecucaoCronometro.ParadaCurta: {
-                    _qntParadasCurtas += 1;
+                    _taskDocument.TotalParadasCurtas += 1;
+                    execucao = new ExecucaoTempoDto
+                    {
+                        TipoExecucao = _taskDocument.TipoTempoParadaCurta,
+                        Tempo = _taskDocument.TempoParadaCurta,
+                        ValorTimeSpan = ObterTempo(_taskDocument.TipoTempoParadaCurta, _taskDocument.TempoParadaCurta)
+                    };
+                    _taskDocument.ExecucoesParadasCurtas.Add(execucao);
+                    _taskDocument.TotalTempoParadas = _taskDocument.TotalTempoParadas.Add(
+                        execucao.ValorTimeSpan
+                    );
                     break;
                 }
                 case TipoExecucaoCronometro.ParadaLonga: {
-                    _qntParadasLongas += 1;
+                    _taskDocument.TotalParadasLongas += 1;
+                    execucao = new ExecucaoTempoDto
+                    {
+                        TipoExecucao = _taskDocument.TipoTempoParadaLonga,
+                        Tempo = _taskDocument.TempoParadaLonga,
+                        ValorTimeSpan = ObterTempo(_taskDocument.TipoTempoParadaLonga, _taskDocument.TempoParadaLonga)
+                    };
+                    _taskDocument.ExecucoesParadasLongas.Add(execucao);
+                    _taskDocument.TotalTempoParadas = _taskDocument.TotalTempoParadas.Add(
+                        execucao.ValorTimeSpan
+                    );
                     break;
                 }
                 default:
@@ -122,7 +163,7 @@ namespace Pomodoro.Cronometro.Windows.App
                     break;
                 }
             }
-            btnReiniciar.Enabled = true;
+            _taskAlterada = true;
             ZerarInformacoes();
         }
 
@@ -161,15 +202,15 @@ namespace Pomodoro.Cronometro.Windows.App
                     _cronometro = _dataAlvoFim.Value.Subtract(currentTime);
                     switch(_tipoExecucao) {
                         case TipoExecucaoCronometro.Pomodoro: {
-                            FormatarValorCronometro(_tipoTempoPomodoro);
+                            FormatarValorCronometro(_taskDocument.TipoTempoPomodoro);
                             break;
                         }
                         case TipoExecucaoCronometro.ParadaCurta: {
-                            FormatarValorCronometro(_tipoTempoParadaCurta);
+                            FormatarValorCronometro(_taskDocument.TipoTempoParadaCurta);
                             break;
                         }
                         case TipoExecucaoCronometro.ParadaLonga: {
-                            FormatarValorCronometro(_tipoTempoParadaLonga);
+                            FormatarValorCronometro(_taskDocument.TipoTempoParadaLonga);
                             break;
                         }
                         default: {
@@ -195,43 +236,70 @@ namespace Pomodoro.Cronometro.Windows.App
             lblAno.Text = DateTime.Now.ToString("yyyy",
                         new CultureInfo("pt-BR"));
 
-            lblResumoContadores.Text = $@"{_qntPomodoros} pomodoros | {_qntParadasCurtas} paradas curtas | {_qntParadasLongas} paradas longas";
+            lblResumoContadores.Text = $@"{_taskDocument.TotalPomodoros} pomodoros | {_taskDocument.TotalParadasCurtas} paradas curtas | {_taskDocument.TotalParadasLongas} paradas longas";
 
-            lblTotalTempo.Text = $@"00:00:00 Tempo total pomodoro | 00:00:00 Tempo total Paradas";
+            var valorTempoTotalPomodoro = $"{_taskDocument.TotalTempoPomodoro.TotalHours:00}:{_taskDocument.TotalTempoPomodoro.Minutes:00}:{_taskDocument.TotalTempoPomodoro.Seconds:00}";
+            var valorTempoTotalParada = $"{_taskDocument.TotalTempoParadas.TotalHours:00}:{_taskDocument.TotalTempoParadas.Minutes:00}:{_taskDocument.TotalTempoParadas.Seconds:00}";
+
+            lblTotalTempo.Text = $@"{valorTempoTotalPomodoro} Tempo total pomodoro | {valorTempoTotalParada} Tempo total Paradas";
 
             ProcessaCronometro();
+        }
+
+        void AtualizaComponentesCasoTaskConcluida()
+        {
+            txtDescricao.ReadOnly = _taskDocument.Concluida;
+            btnIniciarPomodoro.Enabled = !_taskDocument.Concluida;
+            btnIniciarParadaCurta.Enabled = !_taskDocument.Concluida;
+            btnIniciarParadaLonga.Enabled = !_taskDocument.Concluida;
+        }
+
+        void AtualizaComponentesComTaskDocument()
+        {
+            txtDescricao.Text = _taskDocument.Descricao;
+            ckbConcluida.Checked = _taskDocument.Concluida;
         }
 
         private void tmrHora_Tick(object sender, EventArgs e)
         {
             AtualizaInfoDia();
-            //Application.DoEvents();
+            if (!_taskDocument.Concluida) {
+                if (!_taskAlterada) {
+                    if (string.IsNullOrEmpty(_taskDocument.Descricao) && string.IsNullOrEmpty(txtDescricao.Text)) {
+                        return;
+                    }
+                    if (_taskDocument.Descricao != txtDescricao.Text) {
+                        _taskAlterada = true;
+                    }
+                }
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             AtualizaInfoDia();
             tmrHora.Enabled = true;
+            ckbConcluida.Checked = _taskDocument.Concluida;
         }
 
-        private void btnIniciar_Click(object sender, EventArgs e)
+        private void btnIniciarPomodoro_Click(object sender, EventArgs e)
         {
             _dataGatilhoInicio = DateTime.Now;
-            switch (_tipoTempoPomodoro)
+            switch (_taskDocument.TipoTempoPomodoro)
             {
                 case TipoExecucaoTempo.Segundos:
                     {
-                        _dataAlvoFim = DateTime.Now.AddSeconds(_tempoPomodoro);
+                        _dataAlvoFim = DateTime.Now.AddSeconds(_taskDocument.TempoPomodoro);
                         break;
                     }
                 case TipoExecucaoTempo.Minutos:
                     {
-                        _dataAlvoFim = DateTime.Now.AddMinutes(_tempoPomodoro);
+                        _dataAlvoFim = DateTime.Now.AddMinutes(_taskDocument.TempoPomodoro);
                         break;
                     }
                 case TipoExecucaoTempo.Horas:
                     {
-                        _dataAlvoFim = DateTime.Now.AddHours(_tempoPomodoro);
+                        _dataAlvoFim = DateTime.Now.AddHours(_taskDocument.TempoPomodoro);
                         break;
                     }
                 default: {
@@ -241,31 +309,36 @@ namespace Pomodoro.Cronometro.Windows.App
             _tipoExecucao = TipoExecucaoCronometro.Pomodoro;
             _cronometroLigado = true;
             btnParar.Enabled = true;
-            btnIniciar.Enabled = false;
+            btnIniciarPomodoro.Enabled = false;
             btnIniciarParadaCurta.Enabled = false;
             btnIniciarParadaLonga.Enabled = false;
-            btnReiniciar.Enabled = false;
+
+            btnNovo.Enabled = false;
+            btnSalvar.Enabled = false;
+            btnAbrir.Enabled = false;
+            btnSair.Enabled = false;
             btnConfiguracao.Enabled = false;
+            ckbConcluida.Enabled = false;
         }
 
         private void btnIniciarParadaCurta_Click(object sender, EventArgs e)
         {
             _dataGatilhoInicio = DateTime.Now;
-            switch (_tipoTempoParadaCurta)
+            switch (_taskDocument.TipoTempoParadaCurta)
             {
                 case TipoExecucaoTempo.Segundos:
                     {
-                        _dataAlvoFim = DateTime.Now.AddSeconds(_tempoParadaCurta);
+                        _dataAlvoFim = DateTime.Now.AddSeconds(_taskDocument.TempoParadaCurta);
                         break;
                     }
                 case TipoExecucaoTempo.Minutos:
                     {
-                        _dataAlvoFim = DateTime.Now.AddMinutes(_tempoParadaCurta);
+                        _dataAlvoFim = DateTime.Now.AddMinutes(_taskDocument.TempoParadaCurta);
                         break;
                     }
                 case TipoExecucaoTempo.Horas:
                     {
-                        _dataAlvoFim = DateTime.Now.AddHours(_tempoParadaCurta);
+                        _dataAlvoFim = DateTime.Now.AddHours(_taskDocument.TempoParadaCurta);
                         break;
                     }
                 default:
@@ -276,32 +349,37 @@ namespace Pomodoro.Cronometro.Windows.App
             _tipoExecucao = TipoExecucaoCronometro.ParadaCurta;
             _cronometroLigado = true;
             btnParar.Enabled = true;
-            btnIniciar.Enabled = false;
+            btnIniciarPomodoro.Enabled = false;
             btnIniciarParadaCurta.Enabled = false;
             btnIniciarParadaLonga.Enabled = false;
-            btnReiniciar.Enabled = false;
+
+            btnNovo.Enabled = false;
+            btnSalvar.Enabled = false;
+            btnAbrir.Enabled = false;
+            btnSair.Enabled = false;
             btnConfiguracao.Enabled = false;
+            ckbConcluida.Enabled = false;
         }
 
         private void btnIniciarParadaLonga_Click(object sender, EventArgs e)
         {
             _dataGatilhoInicio = DateTime.Now;
 
-            switch (_tipoTempoParadaLonga)
+            switch (_taskDocument.TipoTempoParadaLonga)
             {
                 case TipoExecucaoTempo.Segundos:
                     {
-                        _dataAlvoFim = DateTime.Now.AddSeconds(_tempoParadaLonga);
+                        _dataAlvoFim = DateTime.Now.AddSeconds(_taskDocument.TempoParadaLonga);
                         break;
                     }
                 case TipoExecucaoTempo.Minutos:
                     {
-                        _dataAlvoFim = DateTime.Now.AddMinutes(_tempoParadaLonga);
+                        _dataAlvoFim = DateTime.Now.AddMinutes(_taskDocument.TempoParadaLonga);
                         break;
                     }
                 case TipoExecucaoTempo.Horas:
                     {
-                        _dataAlvoFim = DateTime.Now.AddHours(_tempoParadaLonga);
+                        _dataAlvoFim = DateTime.Now.AddHours(_taskDocument.TempoParadaLonga);
                         break;
                     }
                 default:
@@ -312,11 +390,16 @@ namespace Pomodoro.Cronometro.Windows.App
             _tipoExecucao = TipoExecucaoCronometro.ParadaLonga;
             _cronometroLigado = true;
             btnParar.Enabled = true;
-            btnIniciar.Enabled = false;
+            btnIniciarPomodoro.Enabled = false;
             btnIniciarParadaCurta.Enabled = false;
             btnIniciarParadaLonga.Enabled = false;
-            btnReiniciar.Enabled = false;
+
+            btnNovo.Enabled = false;
+            btnSalvar.Enabled = false;
+            btnAbrir.Enabled = false;
+            btnSair.Enabled = false;
             btnConfiguracao.Enabled = false;
+            ckbConcluida.Enabled = false;
         }
 
         private void btnParar_Click(object sender, EventArgs e) {
@@ -324,16 +407,13 @@ namespace Pomodoro.Cronometro.Windows.App
             btnZerar.Enabled = true;
             btnContinuar.Enabled = true;
             btnParar.Enabled = false;
-            if (_qntPomodoros > 0 || _qntParadasCurtas > 0 || _qntParadasLongas > 0) {
-                btnReiniciar.Enabled = true;
-            }
         }
 
         void ZerarInformacoes()
         {
             _cronometroLigado = false;
             _valorCronometro = "00:00";
-            btnIniciar.Enabled = true;
+            btnIniciarPomodoro.Enabled = true;
             btnIniciarParadaCurta.Enabled = true;
             btnIniciarParadaLonga.Enabled = true;
             btnContinuar.Enabled = false;
@@ -342,6 +422,13 @@ namespace Pomodoro.Cronometro.Windows.App
             _dataGatilhoInicio = null;
             _dataAlvoFim = null;
             btnConfiguracao.Enabled = true;
+            ckbConcluida.Enabled = true;
+
+            btnNovo.Enabled = true;
+            btnSalvar.Enabled = true;
+            btnAbrir.Enabled = true;
+            btnSair.Enabled = true;
+            ckbConcluida.Enabled = true;
         }
 
         private void btnZerar_Click(object sender, EventArgs e)
@@ -349,7 +436,7 @@ namespace Pomodoro.Cronometro.Windows.App
             ZerarInformacoes();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnSair_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -371,32 +458,136 @@ namespace Pomodoro.Cronometro.Windows.App
             btnContinuar.Enabled = false;
             btnZerar.Enabled = false;
             btnParar.Enabled = true;
-            btnReiniciar.Enabled = false;
+            btnNovo.Enabled = false;
         }
 
-        private void btnReiniciar_Click(object sender, EventArgs e)
+        DialogResult VerificarTarefaAlterada()
         {
-            var result = MessageBox.Show("Deseja realmente limpar os registros?", "Pomodoro cronometro",
+            if (!_taskAlterada) return DialogResult.OK;
+            var result = MessageBox.Show("Deseja salvar as alterações da tarefa atual?", "Pomodoro cronometro",
                              MessageBoxButtons.YesNo,
                              MessageBoxIcon.Question);
+            return result;
+        }
 
-            if (result == DialogResult.No) return;
+        DialogResult FluxoVerificarSalvarTarefaAtual()
+        {
+            var result = VerificarTarefaAlterada();
+            switch(result)
+            {
+                case DialogResult.Yes:
+                    {
+                        return FluxoSalvarTarefa(false);
+                    }
+                default:
+                {
+                    return DialogResult.OK;
+                }
+            }
+        }
 
-            _qntParadasCurtas = 0;
-            _qntParadasLongas = 0;
-            _qntPomodoros = 0;
+        private void btnNovo_Click(object sender, EventArgs e)
+        {
+            var result = FluxoVerificarSalvarTarefaAtual();
 
-            btnReiniciar.Enabled = false;
+            if (result == DialogResult.Cancel) return;
+
+            //var result = MessageBox.Show("Deseja realmente limpar os registros?", "Pomodoro cronometro",
+            //                 MessageBoxButtons.YesNo,
+            //                 MessageBoxIcon.Question);
+
+            //if (result == DialogResult.No) return;
+
+            _taskDocument = new TaskPomodoroJsonDto {
+                TempoPomodoro = _taskDocument.TempoPomodoro,
+                TempoParadaCurta = _taskDocument.TempoParadaCurta,
+                TempoParadaLonga = _taskDocument.TempoParadaLonga,
+                TextoConclusao = _taskDocument.TextoConclusao,
+                TipoTempoParadaCurta = _taskDocument.TipoTempoParadaCurta,
+                TipoTempoParadaLonga = _taskDocument.TipoTempoParadaLonga,
+                TipoTempoPomodoro = _taskDocument.TipoTempoPomodoro,
+            };
+            _arquivoJson = String.Empty;
+            _taskAlterada = false;
+            AtualizaComponentesComTaskDocument();
         }
 
         private void FrmPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
-            var result = MessageBox.Show("Deseja realmente sair?", "Pomodoro cronometro",
+            if (_cronometroLigado)
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            var result = FluxoVerificarSalvarTarefaAtual();
+
+            if (result == DialogResult.Cancel)
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            result = MessageBox.Show("Deseja realmente sair?", "Pomodoro cronometro",
                              MessageBoxButtons.YesNo,
                              MessageBoxIcon.Question);
 
             e.Cancel = (result == DialogResult.No);
         }
 
+        DialogResult FluxoSalvarTarefa(bool mostrarMsgSucesso = true)
+        {
+            if (string.IsNullOrEmpty(_arquivoJson))
+            {
+                saveDialog.FileName = $"task-pomodoro-{DateTime.Now:ddMMyyyy}-{DateTime.Now:HHmmss}.json";
+                if (saveDialog.ShowDialog() == DialogResult.OK) {
+                    _arquivoJson = saveDialog.FileName;
+                } else
+                {
+                    return DialogResult.Cancel;
+                }
+            }
+
+            if (string.IsNullOrEmpty(_arquivoJson))
+            {
+                return DialogResult.Cancel;
+            }
+
+            _taskDocument.Descricao = txtDescricao.Text;
+
+            using FileStream createStream = File.Create(_arquivoJson);
+            JsonSerializer.SerializeAsync(createStream, _taskDocument, new JsonSerializerOptions { WriteIndented = true }).GetAwaiter().GetResult();
+
+            _taskAlterada = false;
+            if (mostrarMsgSucesso) MessageBox.Show("Tarefa salva com sucesso!", "Pomodoro Cronometro");
+
+            return DialogResult.OK;
+        }
+
+        private void btnSalvar_Click(object sender, EventArgs e) {
+            FluxoSalvarTarefa();
+        }
+
+        private void btnAbrir_Click(object sender, EventArgs e)
+        {
+            if (openDialog.ShowDialog() == DialogResult.OK) {
+                _arquivoJson = openDialog.FileName;
+            }
+
+            if (string.IsNullOrEmpty(_arquivoJson)) return;
+
+            var jsonString = File.ReadAllText(_arquivoJson);
+            _taskDocument = JsonSerializer.Deserialize<TaskPomodoroJsonDto>(jsonString);
+
+            _taskAlterada = false;
+            AtualizaComponentesComTaskDocument();
+        }
+
+        private void ckbConcluida_CheckedChanged(object sender, EventArgs e)
+        {
+            _taskDocument.Concluida = ckbConcluida.Checked;
+            _taskAlterada = true;
+            AtualizaComponentesCasoTaskConcluida();
+        }
     }
 }
