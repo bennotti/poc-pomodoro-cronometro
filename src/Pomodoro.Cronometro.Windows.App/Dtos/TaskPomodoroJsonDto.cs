@@ -7,17 +7,17 @@ namespace Pomodoro.Cronometro.Windows.App.Dtos
 {
     public sealed class TaskPomodoroJsonDto
     {
-        public bool Concluida { get; set; }
+        public bool Concluida { get; set; } = false;
         public string Identificador { get; set; } = Guid.NewGuid().ToString();
-        public string Descricao { get; set; }
-        public int TotalPomodoros { get; set; }
-        public int TotalParadasCurtas { get; set; }
-        public int TotalParadasLongas { get; set; }
+        public string Descricao { get; set; } = "";
+        public int TotalPomodoros { get; set; } = 0;
+        public int TotalParadasCurtas { get; set; } = 0;
+        public int TotalParadasLongas { get; set; } = 0;
         public IList<ExecucaoTempoDto> ExecucoesPomodoro { get; set; } = new List<ExecucaoTempoDto>();
         public IList<ExecucaoTempoDto> ExecucoesParadasCurtas { get; set; } = new List<ExecucaoTempoDto>();
         public IList<ExecucaoTempoDto> ExecucoesParadasLongas { get; set; } = new List<ExecucaoTempoDto>();
-        public TimeSpan TotalTempoPomodoro { get; set; }
-        public TimeSpan TotalTempoParadas { get; set; }
+        public TimeSpan TotalTempoPomodoro { get; set; } = TimeSpan.Zero;
+        public TimeSpan TotalTempoParadas { get; set; } = TimeSpan.Zero;
         public int TempoPomodoro { get; set; } = 25;
         public int TempoParadaCurta { get; set; } = 5;
         public int TempoParadaLonga { get; set; } = 15;

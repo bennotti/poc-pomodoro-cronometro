@@ -1,4 +1,5 @@
-﻿using Pomodoro.Cronometro.Windows.App.Dtos;
+﻿using Newtonsoft.Json;
+using Pomodoro.Cronometro.Windows.App.Dtos;
 using Pomodoro.Cronometro.Windows.App.Enum;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,6 @@ using System.IO;
 using System.Linq;
 using System.Speech.Synthesis;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -238,10 +238,12 @@ namespace Pomodoro.Cronometro.Windows.App
 
             lblResumoContadores.Text = $@"{_taskDocument.TotalPomodoros} pomodoros | {_taskDocument.TotalParadasCurtas} paradas curtas | {_taskDocument.TotalParadasLongas} paradas longas";
 
-            var valorTempoTotalPomodoro = $"{_taskDocument.TotalTempoPomodoro.TotalHours:00}:{_taskDocument.TotalTempoPomodoro.Minutes:00}:{_taskDocument.TotalTempoPomodoro.Seconds:00}";
-            var valorTempoTotalParada = $"{_taskDocument.TotalTempoParadas.TotalHours:00}:{_taskDocument.TotalTempoParadas.Minutes:00}:{_taskDocument.TotalTempoParadas.Seconds:00}";
+            var totalTempoPomodoro = _taskDocument.TotalTempoPomodoro;
+            var valorTempoTotalPomodoro = $"{totalTempoPomodoro.Days} dias, {totalTempoPomodoro.Hours:00}:{totalTempoPomodoro.Minutes:00}:{totalTempoPomodoro.Seconds:00}";
+            var totalTempoParadas = _taskDocument.TotalTempoParadas;
+            var valorTempoTotalParada = $"{totalTempoParadas.Days} dias, {totalTempoParadas.Hours:00}:{totalTempoParadas.Minutes:00}:{totalTempoParadas.Seconds:00}";
 
-            lblTotalTempo.Text = $@"{valorTempoTotalPomodoro} Tempo total pomodoro | {valorTempoTotalParada} Tempo total Paradas";
+            lblTotalTempo.Text = $@"{valorTempoTotalPomodoro} Total pomodoros | {valorTempoTotalParada} Total paradas";
 
             ProcessaCronometro();
         }
@@ -492,12 +494,6 @@ namespace Pomodoro.Cronometro.Windows.App
 
             if (result == DialogResult.Cancel) return;
 
-            //var result = MessageBox.Show("Deseja realmente limpar os registros?", "Pomodoro cronometro",
-            //                 MessageBoxButtons.YesNo,
-            //                 MessageBoxIcon.Question);
-
-            //if (result == DialogResult.No) return;
-
             _taskDocument = new TaskPomodoroJsonDto {
                 TempoPomodoro = _taskDocument.TempoPomodoro,
                 TempoParadaCurta = _taskDocument.TempoParadaCurta,
@@ -507,9 +503,9 @@ namespace Pomodoro.Cronometro.Windows.App
                 TipoTempoParadaLonga = _taskDocument.TipoTempoParadaLonga,
                 TipoTempoPomodoro = _taskDocument.TipoTempoPomodoro,
             };
+            AtualizaComponentesComTaskDocument();
             _arquivoJson = String.Empty;
             _taskAlterada = false;
-            AtualizaComponentesComTaskDocument();
         }
 
         private void FrmPrincipal_FormClosing(object sender, FormClosingEventArgs e)
@@ -555,9 +551,12 @@ namespace Pomodoro.Cronometro.Windows.App
 
             _taskDocument.Descricao = txtDescricao.Text;
 
-            using FileStream createStream = File.Create(_arquivoJson);
-            JsonSerializer.SerializeAsync(createStream, _taskDocument, new JsonSerializerOptions { WriteIndented = true }).GetAwaiter().GetResult();
-
+            using (FileStream fs = File.Create(_arquivoJson)) {
+                var stringJson = JsonConvert.SerializeObject(_taskDocument, Formatting.Indented);
+                byte[] info = new UTF8Encoding(true).GetBytes(stringJson);
+                // Add some information to the file.
+                fs.Write(info, 0, info.Length);
+            }
             _taskAlterada = false;
             if (mostrarMsgSucesso) MessageBox.Show("Tarefa salva com sucesso!", "Pomodoro Cronometro");
 
@@ -577,17 +576,18 @@ namespace Pomodoro.Cronometro.Windows.App
             if (string.IsNullOrEmpty(_arquivoJson)) return;
 
             var jsonString = File.ReadAllText(_arquivoJson);
-            _taskDocument = JsonSerializer.Deserialize<TaskPomodoroJsonDto>(jsonString);
+            _taskDocument = JsonConvert.DeserializeObject<TaskPomodoroJsonDto>(jsonString);
+
+            AtualizaComponentesComTaskDocument();
 
             _taskAlterada = false;
-            AtualizaComponentesComTaskDocument();
         }
 
         private void ckbConcluida_CheckedChanged(object sender, EventArgs e)
         {
             _taskDocument.Concluida = ckbConcluida.Checked;
-            _taskAlterada = true;
             AtualizaComponentesCasoTaskConcluida();
+            _taskAlterada = true;
         }
     }
 }
