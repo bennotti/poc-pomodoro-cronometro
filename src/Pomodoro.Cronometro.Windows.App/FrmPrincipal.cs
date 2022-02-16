@@ -321,6 +321,8 @@ namespace Pomodoro.Cronometro.Windows.App
             btnSair.Enabled = false;
             btnConfiguracao.Enabled = false;
             ckbConcluida.Enabled = false;
+
+            this.MinimizeBox = false;
         }
 
         private void btnIniciarParadaCurta_Click(object sender, EventArgs e)
@@ -361,6 +363,8 @@ namespace Pomodoro.Cronometro.Windows.App
             btnSair.Enabled = false;
             btnConfiguracao.Enabled = false;
             ckbConcluida.Enabled = false;
+
+            this.MinimizeBox = false;
         }
 
         private void btnIniciarParadaLonga_Click(object sender, EventArgs e)
@@ -402,6 +406,8 @@ namespace Pomodoro.Cronometro.Windows.App
             btnSair.Enabled = false;
             btnConfiguracao.Enabled = false;
             ckbConcluida.Enabled = false;
+
+            this.MinimizeBox = false;
         }
 
         private void btnParar_Click(object sender, EventArgs e) {
@@ -409,6 +415,8 @@ namespace Pomodoro.Cronometro.Windows.App
             btnZerar.Enabled = true;
             btnContinuar.Enabled = true;
             btnParar.Enabled = false;
+
+            this.MinimizeBox = true;
         }
 
         void ZerarInformacoes()
@@ -431,6 +439,8 @@ namespace Pomodoro.Cronometro.Windows.App
             btnAbrir.Enabled = true;
             btnSair.Enabled = true;
             ckbConcluida.Enabled = true;
+
+            this.MinimizeBox = true;
         }
 
         private void btnZerar_Click(object sender, EventArgs e)
@@ -461,6 +471,8 @@ namespace Pomodoro.Cronometro.Windows.App
             btnZerar.Enabled = false;
             btnParar.Enabled = true;
             btnNovo.Enabled = false;
+
+            this.MinimizeBox = false;
         }
 
         DialogResult VerificarTarefaAlterada()
