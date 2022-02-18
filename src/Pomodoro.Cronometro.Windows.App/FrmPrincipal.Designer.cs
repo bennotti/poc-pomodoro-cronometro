@@ -55,6 +55,8 @@
             this.openDialog = new System.Windows.Forms.OpenFileDialog();
             this.txtDescricao = new System.Windows.Forms.TextBox();
             this.ckbConcluida = new System.Windows.Forms.CheckBox();
+            this.btnAddPomodoro = new System.Windows.Forms.Button();
+            this.btnMinusPomodoro = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnIniciarPomodoro
@@ -105,9 +107,9 @@
             // 
             // lblResumoContadores
             // 
-            this.lblResumoContadores.Location = new System.Drawing.Point(12, 9);
+            this.lblResumoContadores.Location = new System.Drawing.Point(70, 9);
             this.lblResumoContadores.Name = "lblResumoContadores";
-            this.lblResumoContadores.Size = new System.Drawing.Size(405, 23);
+            this.lblResumoContadores.Size = new System.Drawing.Size(347, 23);
             this.lblResumoContadores.TabIndex = 4;
             this.lblResumoContadores.Text = "0 pomodoros | 0 paradas curtas | 0 paradas longas";
             this.lblResumoContadores.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -212,6 +214,8 @@
             // 
             this.ckbAlwaysOnTop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ckbAlwaysOnTop.AutoSize = true;
+            this.ckbAlwaysOnTop.Checked = true;
+            this.ckbAlwaysOnTop.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ckbAlwaysOnTop.Location = new System.Drawing.Point(12, 347);
             this.ckbAlwaysOnTop.Name = "ckbAlwaysOnTop";
             this.ckbAlwaysOnTop.Size = new System.Drawing.Size(101, 19);
@@ -249,6 +253,8 @@
             // 
             this.ckbSpeakWhenFinish.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ckbSpeakWhenFinish.AutoSize = true;
+            this.ckbSpeakWhenFinish.Checked = true;
+            this.ckbSpeakWhenFinish.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ckbSpeakWhenFinish.Location = new System.Drawing.Point(119, 347);
             this.ckbSpeakWhenFinish.Name = "ckbSpeakWhenFinish";
             this.ckbSpeakWhenFinish.Size = new System.Drawing.Size(121, 19);
@@ -328,11 +334,36 @@
             this.ckbConcluida.UseVisualStyleBackColor = true;
             this.ckbConcluida.CheckedChanged += new System.EventHandler(this.ckbConcluida_CheckedChanged);
             // 
+            // btnAddPomodoro
+            // 
+            this.btnAddPomodoro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddPomodoro.Location = new System.Drawing.Point(12, 9);
+            this.btnAddPomodoro.Name = "btnAddPomodoro";
+            this.btnAddPomodoro.Size = new System.Drawing.Size(23, 23);
+            this.btnAddPomodoro.TabIndex = 23;
+            this.btnAddPomodoro.Text = "+";
+            this.btnAddPomodoro.UseVisualStyleBackColor = true;
+            this.btnAddPomodoro.Click += new System.EventHandler(this.btnAddPomodoro_Click);
+            // 
+            // btnMinusPomodoro
+            // 
+            this.btnMinusPomodoro.Enabled = false;
+            this.btnMinusPomodoro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMinusPomodoro.Location = new System.Drawing.Point(41, 9);
+            this.btnMinusPomodoro.Name = "btnMinusPomodoro";
+            this.btnMinusPomodoro.Size = new System.Drawing.Size(23, 23);
+            this.btnMinusPomodoro.TabIndex = 24;
+            this.btnMinusPomodoro.Text = "-";
+            this.btnMinusPomodoro.UseVisualStyleBackColor = true;
+            this.btnMinusPomodoro.Click += new System.EventHandler(this.btnMinusPomodoro_Click);
+            // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(427, 371);
+            this.Controls.Add(this.btnMinusPomodoro);
+            this.Controls.Add(this.btnAddPomodoro);
             this.Controls.Add(this.ckbConcluida);
             this.Controls.Add(this.txtDescricao);
             this.Controls.Add(this.btnSalvar);
@@ -360,6 +391,7 @@
             this.Name = "FrmPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pomodoro Cronometro";
+            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmPrincipal_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
@@ -394,5 +426,7 @@
         private System.Windows.Forms.OpenFileDialog openDialog;
         private System.Windows.Forms.TextBox txtDescricao;
         private System.Windows.Forms.CheckBox ckbConcluida;
+        private System.Windows.Forms.Button btnAddPomodoro;
+        private System.Windows.Forms.Button btnMinusPomodoro;
     }
 }

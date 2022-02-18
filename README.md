@@ -16,6 +16,7 @@ Funcionalidades:
 - somar o tempo de paradas longas executadas
 - permite salvar em um arquivo json
 - permite abrir um arquivo json no formato compativel com o sistema
+- adicionar ou remover quantidade de pomodoros
 
 Licensing
 ---------

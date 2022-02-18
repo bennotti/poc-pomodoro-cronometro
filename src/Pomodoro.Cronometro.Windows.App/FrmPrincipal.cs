@@ -26,6 +26,7 @@ namespace Pomodoro.Cronometro.Windows.App
 
         TipoExecucaoCronometro _tipoExecucao = TipoExecucaoCronometro.Nenhum;
         bool _cronometroLigado = false;
+        bool _cronometroParado = false;
         string _valorCronometro = "00:00";
         DateTime? _dataGatilhoInicio = null;
         DateTime? _dataAlvoFim = null;
@@ -114,9 +115,18 @@ namespace Pomodoro.Cronometro.Windows.App
             {
                 _synthesizer.Speak(_builder);
             }
+            ContabilizarTempo();
+            _taskAlterada = true;
+            ZerarInformacoes();
+        }
+
+        void ContabilizarTempo()
+        {
             ExecucaoTempoDto execucao;
-            switch (_tipoExecucao) {
-                case TipoExecucaoCronometro.Pomodoro: {
+            switch (_tipoExecucao)
+            {
+                case TipoExecucaoCronometro.Pomodoro:
+                {
                     _taskDocument.TotalPomodoros += 1;
                     execucao = new ExecucaoTempoDto
                     {
@@ -130,7 +140,8 @@ namespace Pomodoro.Cronometro.Windows.App
                     );
                     break;
                 }
-                case TipoExecucaoCronometro.ParadaCurta: {
+                case TipoExecucaoCronometro.ParadaCurta:
+                {
                     _taskDocument.TotalParadasCurtas += 1;
                     execucao = new ExecucaoTempoDto
                     {
@@ -144,7 +155,8 @@ namespace Pomodoro.Cronometro.Windows.App
                     );
                     break;
                 }
-                case TipoExecucaoCronometro.ParadaLonga: {
+                case TipoExecucaoCronometro.ParadaLonga:
+                {
                     _taskDocument.TotalParadasLongas += 1;
                     execucao = new ExecucaoTempoDto
                     {
@@ -163,8 +175,6 @@ namespace Pomodoro.Cronometro.Windows.App
                     break;
                 }
             }
-            _taskAlterada = true;
-            ZerarInformacoes();
         }
 
         void FormatarValorCronometro(TipoExecucaoTempo tipo)
@@ -275,6 +285,25 @@ namespace Pomodoro.Cronometro.Windows.App
                     }
                 }
             }
+
+            if (!_cronometroLigado && !_cronometroParado)
+            {
+                if (_taskDocument.TotalPomodoros <= 0 && btnMinusPomodoro.Enabled)
+                {
+                    btnMinusPomodoro.Enabled = false;
+                }
+                else if (_taskDocument.TotalPomodoros > 0 && !btnMinusPomodoro.Enabled)
+                {
+                    btnMinusPomodoro.Enabled = true;
+                }
+            }
+
+            if ((ckbAlwaysOnTop.Checked && !this.TopMost) || (ckbAlwaysOnTop.Checked && !this._frmConfiguracao.TopMost))
+            {
+                this.TopMost = ckbAlwaysOnTop.Checked;
+                this._frmConfiguracao.TopMost = ckbAlwaysOnTop.Checked;
+                Application.DoEvents();
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -315,6 +344,8 @@ namespace Pomodoro.Cronometro.Windows.App
             btnIniciarParadaCurta.Enabled = false;
             btnIniciarParadaLonga.Enabled = false;
 
+            btnAddPomodoro.Enabled = false;
+            btnMinusPomodoro.Enabled = false;
             btnNovo.Enabled = false;
             btnSalvar.Enabled = false;
             btnAbrir.Enabled = false;
@@ -357,6 +388,8 @@ namespace Pomodoro.Cronometro.Windows.App
             btnIniciarParadaCurta.Enabled = false;
             btnIniciarParadaLonga.Enabled = false;
 
+            btnAddPomodoro.Enabled = false;
+            btnMinusPomodoro.Enabled = false;
             btnNovo.Enabled = false;
             btnSalvar.Enabled = false;
             btnAbrir.Enabled = false;
@@ -400,6 +433,8 @@ namespace Pomodoro.Cronometro.Windows.App
             btnIniciarParadaCurta.Enabled = false;
             btnIniciarParadaLonga.Enabled = false;
 
+            btnAddPomodoro.Enabled = false;
+            btnMinusPomodoro.Enabled = false;
             btnNovo.Enabled = false;
             btnSalvar.Enabled = false;
             btnAbrir.Enabled = false;
@@ -412,6 +447,7 @@ namespace Pomodoro.Cronometro.Windows.App
 
         private void btnParar_Click(object sender, EventArgs e) {
             _cronometroLigado = false;
+            _cronometroParado = true;
             btnZerar.Enabled = true;
             btnContinuar.Enabled = true;
             btnParar.Enabled = false;
@@ -422,6 +458,7 @@ namespace Pomodoro.Cronometro.Windows.App
         void ZerarInformacoes()
         {
             _cronometroLigado = false;
+            _cronometroParado = false;
             _valorCronometro = "00:00";
             btnIniciarPomodoro.Enabled = true;
             btnIniciarParadaCurta.Enabled = true;
@@ -434,6 +471,8 @@ namespace Pomodoro.Cronometro.Windows.App
             btnConfiguracao.Enabled = true;
             ckbConcluida.Enabled = true;
 
+            btnAddPomodoro.Enabled = true;
+            if (_taskDocument.TotalPomodoros > 0) btnMinusPomodoro.Enabled = true;
             btnNovo.Enabled = true;
             btnSalvar.Enabled = true;
             btnAbrir.Enabled = true;
@@ -455,9 +494,7 @@ namespace Pomodoro.Cronometro.Windows.App
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            this.TopMost = ckbAlwaysOnTop.Checked;
-            this._frmConfiguracao.TopMost = ckbAlwaysOnTop.Checked;
-            Application.DoEvents();
+            //
         }
 
         private void btnContinuar_Click(object sender, EventArgs e)
@@ -467,6 +504,7 @@ namespace Pomodoro.Cronometro.Windows.App
                 _dataAlvoFim = DateTime.Now.Add(_cronometro.Value);
             }
             _cronometroLigado = true;
+            _cronometroParado = false;
             btnContinuar.Enabled = false;
             btnZerar.Enabled = false;
             btnParar.Enabled = true;
@@ -600,6 +638,81 @@ namespace Pomodoro.Cronometro.Windows.App
             _taskDocument.Concluida = ckbConcluida.Checked;
             AtualizaComponentesCasoTaskConcluida();
             _taskAlterada = true;
+        }
+
+        private void btnAddPomodoro_Click(object sender, EventArgs e)
+        {
+            _tipoExecucao = TipoExecucaoCronometro.Pomodoro;
+            ContabilizarTempo();
+            _taskAlterada = true;
+        }
+
+        private void btnMinusPomodoro_Click(object sender, EventArgs e)
+        {
+            _tipoExecucao = TipoExecucaoCronometro.Pomodoro;
+            ContabilizarDiminuicaoTempo();
+            _taskAlterada = true;
+        }
+
+        void ContabilizarDiminuicaoTempo()
+        {
+            if (_taskDocument.TotalPomodoros <= 0) return;
+            ExecucaoTempoDto execucao;
+            switch (_tipoExecucao)
+            {
+                case TipoExecucaoCronometro.Pomodoro:
+                    {
+                        _taskDocument.TotalPomodoros -= 1;
+                        execucao = new ExecucaoTempoDto
+                        {
+                            TipoExecucao = _taskDocument.TipoTempoPomodoro,
+                            Tempo = _taskDocument.TempoPomodoro,
+                            ValorTimeSpan = ObterTempo(_taskDocument.TipoTempoPomodoro, _taskDocument.TempoPomodoro),
+                            Tipo = TipoExecucaoTempoEnum.Removido
+                        };
+                        _taskDocument.ExecucoesPomodoro.Add(execucao);
+                        _taskDocument.TotalTempoPomodoro = _taskDocument.TotalTempoPomodoro.Subtract(
+                            execucao.ValorTimeSpan
+                        );
+                        break;
+                    }
+                case TipoExecucaoCronometro.ParadaCurta:
+                    {
+                        _taskDocument.TotalParadasCurtas -= 1;
+                        execucao = new ExecucaoTempoDto
+                        {
+                            TipoExecucao = _taskDocument.TipoTempoParadaCurta,
+                            Tempo = _taskDocument.TempoParadaCurta,
+                            ValorTimeSpan = ObterTempo(_taskDocument.TipoTempoParadaCurta, _taskDocument.TempoParadaCurta),
+                            Tipo = TipoExecucaoTempoEnum.Removido
+                        };
+                        _taskDocument.ExecucoesParadasCurtas.Add(execucao);
+                        _taskDocument.TotalTempoParadas = _taskDocument.TotalTempoParadas.Subtract(
+                            execucao.ValorTimeSpan
+                        );
+                        break;
+                    }
+                case TipoExecucaoCronometro.ParadaLonga:
+                    {
+                        _taskDocument.TotalParadasLongas -= 1;
+                        execucao = new ExecucaoTempoDto
+                        {
+                            TipoExecucao = _taskDocument.TipoTempoParadaLonga,
+                            Tempo = _taskDocument.TempoParadaLonga,
+                            ValorTimeSpan = ObterTempo(_taskDocument.TipoTempoParadaLonga, _taskDocument.TempoParadaLonga),
+                            Tipo = TipoExecucaoTempoEnum.Removido,
+                        };
+                        _taskDocument.ExecucoesParadasLongas.Add(execucao);
+                        _taskDocument.TotalTempoParadas = _taskDocument.TotalTempoParadas.Subtract(
+                            execucao.ValorTimeSpan
+                        );
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
         }
     }
 }
