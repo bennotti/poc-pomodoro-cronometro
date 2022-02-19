@@ -57,6 +57,7 @@
             this.ckbConcluida = new System.Windows.Forms.CheckBox();
             this.btnAddPomodoro = new System.Windows.Forms.Button();
             this.btnMinusPomodoro = new System.Windows.Forms.Button();
+            this.btnRelatorio = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnIniciarPomodoro
@@ -357,11 +358,24 @@
             this.btnMinusPomodoro.UseVisualStyleBackColor = true;
             this.btnMinusPomodoro.Click += new System.EventHandler(this.btnMinusPomodoro_Click);
             // 
+            // btnRelatorio
+            // 
+            this.btnRelatorio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRelatorio.Location = new System.Drawing.Point(261, 344);
+            this.btnRelatorio.Name = "btnRelatorio";
+            this.btnRelatorio.Size = new System.Drawing.Size(75, 23);
+            this.btnRelatorio.TabIndex = 25;
+            this.btnRelatorio.Text = "Relatorio";
+            this.btnRelatorio.UseVisualStyleBackColor = true;
+            this.btnRelatorio.Click += new System.EventHandler(this.btnRelatorio_Click);
+            // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(427, 371);
+            this.Controls.Add(this.btnRelatorio);
             this.Controls.Add(this.btnMinusPomodoro);
             this.Controls.Add(this.btnAddPomodoro);
             this.Controls.Add(this.ckbConcluida);
@@ -428,5 +442,6 @@
         private System.Windows.Forms.CheckBox ckbConcluida;
         private System.Windows.Forms.Button btnAddPomodoro;
         private System.Windows.Forms.Button btnMinusPomodoro;
+        private System.Windows.Forms.Button btnRelatorio;
     }
 }

@@ -25,6 +25,7 @@ namespace Pomodoro.Cronometro.Windows.App
             ConfigureServices(services);
             services.AddScoped<FrmPrincipal>();
             services.AddScoped<FrmConfiguracao>();
+            services.AddScoped<FrmRelatorio>();
 
             using (ServiceProvider serviceProvider = services.BuildServiceProvider())
             {

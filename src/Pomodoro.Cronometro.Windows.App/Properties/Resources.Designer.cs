@@ -59,5 +59,15 @@ namespace Pomodoro.Cronometro.Windows.App.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap abrir {
+            get {
+                object obj = ResourceManager.GetObject("abrir", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

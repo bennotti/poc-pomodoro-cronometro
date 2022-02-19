@@ -35,8 +35,9 @@ namespace Pomodoro.Cronometro.Windows.App
         private readonly SpeechSynthesizer _synthesizer = null;
         PromptBuilder _builder = null;
         private readonly FrmConfiguracao _frmConfiguracao;
+        private readonly FrmRelatorio _frmRelatorio;
 
-        public FrmPrincipal(FrmConfiguracao frmConfiguracao)
+        public FrmPrincipal(FrmConfiguracao frmConfiguracao, FrmRelatorio frmRelatorio)
         {
             InitializeComponent();
             _taskDocument = new TaskPomodoroJsonDto();
@@ -49,6 +50,7 @@ namespace Pomodoro.Cronometro.Windows.App
             _builder.AppendText(_taskDocument.TextoConclusao);
             _builder.EndVoice();
             _frmConfiguracao = frmConfiguracao;
+            _frmRelatorio = frmRelatorio;
         }
 
         private void btnConfiguracao_Click(object sender, EventArgs e)
@@ -302,6 +304,7 @@ namespace Pomodoro.Cronometro.Windows.App
             {
                 this.TopMost = ckbAlwaysOnTop.Checked;
                 this._frmConfiguracao.TopMost = ckbAlwaysOnTop.Checked;
+                this._frmRelatorio.TopMost = ckbAlwaysOnTop.Checked;
                 Application.DoEvents();
             }
         }
@@ -713,6 +716,11 @@ namespace Pomodoro.Cronometro.Windows.App
                         break;
                     }
             }
+        }
+
+        private void btnRelatorio_Click(object sender, EventArgs e)
+        {
+            _frmRelatorio.ShowDialog();
         }
     }
 }
