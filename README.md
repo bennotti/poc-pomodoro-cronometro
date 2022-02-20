@@ -1,7 +1,11 @@
+![Icone](https://raw.githubusercontent.com/bennotti/poc-pomodoro-cronometro/main/docs/stopwatch_2.png?raw=true)
+
 # poc-pomodoro-cronometro
+
 Cronometro pomodoro customizavel.
 
 ![Tela principal](https://raw.githubusercontent.com/bennotti/poc-pomodoro-cronometro/main/docs/print_principal.png?raw=true)
+![Tela relatorio](https://raw.githubusercontent.com/bennotti/poc-pomodoro-cronometro/main/docs/print_relatorio.png?raw=true)
 
 [![Execução](https://img.youtube.com/vi/AYrFgJ1MrsI/0.jpg)](https://www.youtube.com/watch?v=AYrFgJ1MrsI)
 
@@ -17,6 +21,7 @@ Funcionalidades:
 - permite salvar em um arquivo json
 - permite abrir um arquivo json no formato compativel com o sistema
 - adicionar ou remover quantidade de pomodoros
+- Visualizar total selecionamento uma pasta contendo os arquivos json
 
 Licensing
 ---------

@@ -13,9 +13,6 @@ namespace Pomodoro.Cronometro.Windows.App.Dtos
         public int TotalPomodoros { get; set; } = 0;
         public int TotalParadasCurtas { get; set; } = 0;
         public int TotalParadasLongas { get; set; } = 0;
-        public IList<ExecucaoTempoDto> ExecucoesPomodoro { get; set; } = new List<ExecucaoTempoDto>();
-        public IList<ExecucaoTempoDto> ExecucoesParadasCurtas { get; set; } = new List<ExecucaoTempoDto>();
-        public IList<ExecucaoTempoDto> ExecucoesParadasLongas { get; set; } = new List<ExecucaoTempoDto>();
         public TimeSpan TotalTempoPomodoro { get; set; } = TimeSpan.Zero;
         public TimeSpan TotalTempoParadas { get; set; } = TimeSpan.Zero;
         public int TempoPomodoro { get; set; } = 25;

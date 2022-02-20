@@ -67,7 +67,7 @@
             this.btnIniciarPomodoro.Location = new System.Drawing.Point(12, 235);
             this.btnIniciarPomodoro.Name = "btnIniciarPomodoro";
             this.btnIniciarPomodoro.Size = new System.Drawing.Size(131, 37);
-            this.btnIniciarPomodoro.TabIndex = 0;
+            this.btnIniciarPomodoro.TabIndex = 1;
             this.btnIniciarPomodoro.Text = "Iniciar pomodoro";
             this.btnIniciarPomodoro.UseVisualStyleBackColor = true;
             this.btnIniciarPomodoro.Click += new System.EventHandler(this.btnIniciarPomodoro_Click);
@@ -79,7 +79,7 @@
             this.btnIniciarParadaCurta.Location = new System.Drawing.Point(149, 235);
             this.btnIniciarParadaCurta.Name = "btnIniciarParadaCurta";
             this.btnIniciarParadaCurta.Size = new System.Drawing.Size(131, 37);
-            this.btnIniciarParadaCurta.TabIndex = 1;
+            this.btnIniciarParadaCurta.TabIndex = 2;
             this.btnIniciarParadaCurta.Text = "Iniciar parada curta";
             this.btnIniciarParadaCurta.UseVisualStyleBackColor = true;
             this.btnIniciarParadaCurta.Click += new System.EventHandler(this.btnIniciarParadaCurta_Click);
@@ -91,7 +91,7 @@
             this.btnIniciarParadaLonga.Location = new System.Drawing.Point(286, 235);
             this.btnIniciarParadaLonga.Name = "btnIniciarParadaLonga";
             this.btnIniciarParadaLonga.Size = new System.Drawing.Size(131, 37);
-            this.btnIniciarParadaLonga.TabIndex = 2;
+            this.btnIniciarParadaLonga.TabIndex = 3;
             this.btnIniciarParadaLonga.Text = "Iniciar parada longa";
             this.btnIniciarParadaLonga.UseVisualStyleBackColor = true;
             this.btnIniciarParadaLonga.Click += new System.EventHandler(this.btnIniciarParadaLonga_Click);
@@ -165,7 +165,7 @@
             this.btnNovo.Location = new System.Drawing.Point(288, 307);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(39, 31);
-            this.btnNovo.TabIndex = 10;
+            this.btnNovo.TabIndex = 8;
             this.btnNovo.UseVisualStyleBackColor = true;
             this.btnNovo.Click += new System.EventHandler(this.btnNovo_Click);
             // 
@@ -177,7 +177,7 @@
             this.btnZerar.Location = new System.Drawing.Point(149, 307);
             this.btnZerar.Name = "btnZerar";
             this.btnZerar.Size = new System.Drawing.Size(131, 31);
-            this.btnZerar.TabIndex = 9;
+            this.btnZerar.TabIndex = 7;
             this.btnZerar.Text = "Zerar";
             this.btnZerar.UseVisualStyleBackColor = true;
             this.btnZerar.Click += new System.EventHandler(this.btnZerar_Click);
@@ -190,7 +190,7 @@
             this.btnParar.Location = new System.Drawing.Point(12, 307);
             this.btnParar.Name = "btnParar";
             this.btnParar.Size = new System.Drawing.Size(131, 31);
-            this.btnParar.TabIndex = 11;
+            this.btnParar.TabIndex = 6;
             this.btnParar.Text = "Parar";
             this.btnParar.UseVisualStyleBackColor = true;
             this.btnParar.Click += new System.EventHandler(this.btnParar_Click);
@@ -220,7 +220,7 @@
             this.ckbAlwaysOnTop.Location = new System.Drawing.Point(12, 347);
             this.ckbAlwaysOnTop.Name = "ckbAlwaysOnTop";
             this.ckbAlwaysOnTop.Size = new System.Drawing.Size(101, 19);
-            this.ckbAlwaysOnTop.TabIndex = 13;
+            this.ckbAlwaysOnTop.TabIndex = 11;
             this.ckbAlwaysOnTop.Text = "Always on top";
             this.ckbAlwaysOnTop.UseVisualStyleBackColor = true;
             this.ckbAlwaysOnTop.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
@@ -245,7 +245,7 @@
             this.btnContinuar.Location = new System.Drawing.Point(12, 278);
             this.btnContinuar.Name = "btnContinuar";
             this.btnContinuar.Size = new System.Drawing.Size(354, 23);
-            this.btnContinuar.TabIndex = 15;
+            this.btnContinuar.TabIndex = 4;
             this.btnContinuar.Text = "Continuar";
             this.btnContinuar.UseVisualStyleBackColor = true;
             this.btnContinuar.Click += new System.EventHandler(this.btnContinuar_Click);
@@ -259,7 +259,7 @@
             this.ckbSpeakWhenFinish.Location = new System.Drawing.Point(119, 347);
             this.ckbSpeakWhenFinish.Name = "ckbSpeakWhenFinish";
             this.ckbSpeakWhenFinish.Size = new System.Drawing.Size(121, 19);
-            this.ckbSpeakWhenFinish.TabIndex = 16;
+            this.ckbSpeakWhenFinish.TabIndex = 12;
             this.ckbSpeakWhenFinish.Text = "Speak when finish";
             this.ckbSpeakWhenFinish.UseVisualStyleBackColor = true;
             // 
@@ -271,7 +271,7 @@
             this.btnConfiguracao.Location = new System.Drawing.Point(372, 278);
             this.btnConfiguracao.Name = "btnConfiguracao";
             this.btnConfiguracao.Size = new System.Drawing.Size(45, 23);
-            this.btnConfiguracao.TabIndex = 18;
+            this.btnConfiguracao.TabIndex = 5;
             this.btnConfiguracao.UseVisualStyleBackColor = true;
             this.btnConfiguracao.Click += new System.EventHandler(this.btnConfiguracao_Click);
             // 
@@ -283,7 +283,7 @@
             this.btnAbrir.Location = new System.Drawing.Point(333, 307);
             this.btnAbrir.Name = "btnAbrir";
             this.btnAbrir.Size = new System.Drawing.Size(39, 31);
-            this.btnAbrir.TabIndex = 19;
+            this.btnAbrir.TabIndex = 9;
             this.btnAbrir.UseVisualStyleBackColor = true;
             this.btnAbrir.Click += new System.EventHandler(this.btnAbrir_Click);
             // 
@@ -295,7 +295,7 @@
             this.btnSalvar.Location = new System.Drawing.Point(378, 307);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(39, 31);
-            this.btnSalvar.TabIndex = 20;
+            this.btnSalvar.TabIndex = 10;
             this.btnSalvar.UseVisualStyleBackColor = true;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
             // 
@@ -322,7 +322,7 @@
             this.txtDescricao.PlaceholderText = "Descrição da tarefa";
             this.txtDescricao.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtDescricao.Size = new System.Drawing.Size(384, 89);
-            this.txtDescricao.TabIndex = 21;
+            this.txtDescricao.TabIndex = 0;
             // 
             // ckbConcluida
             // 
@@ -331,7 +331,7 @@
             this.ckbConcluida.Location = new System.Drawing.Point(12, 178);
             this.ckbConcluida.Name = "ckbConcluida";
             this.ckbConcluida.Size = new System.Drawing.Size(15, 14);
-            this.ckbConcluida.TabIndex = 22;
+            this.ckbConcluida.TabIndex = 15;
             this.ckbConcluida.UseVisualStyleBackColor = true;
             this.ckbConcluida.CheckedChanged += new System.EventHandler(this.ckbConcluida_CheckedChanged);
             // 
@@ -341,7 +341,7 @@
             this.btnAddPomodoro.Location = new System.Drawing.Point(12, 9);
             this.btnAddPomodoro.Name = "btnAddPomodoro";
             this.btnAddPomodoro.Size = new System.Drawing.Size(23, 23);
-            this.btnAddPomodoro.TabIndex = 23;
+            this.btnAddPomodoro.TabIndex = 16;
             this.btnAddPomodoro.Text = "+";
             this.btnAddPomodoro.UseVisualStyleBackColor = true;
             this.btnAddPomodoro.Click += new System.EventHandler(this.btnAddPomodoro_Click);
@@ -353,7 +353,7 @@
             this.btnMinusPomodoro.Location = new System.Drawing.Point(41, 9);
             this.btnMinusPomodoro.Name = "btnMinusPomodoro";
             this.btnMinusPomodoro.Size = new System.Drawing.Size(23, 23);
-            this.btnMinusPomodoro.TabIndex = 24;
+            this.btnMinusPomodoro.TabIndex = 17;
             this.btnMinusPomodoro.Text = "-";
             this.btnMinusPomodoro.UseVisualStyleBackColor = true;
             this.btnMinusPomodoro.Click += new System.EventHandler(this.btnMinusPomodoro_Click);
@@ -365,7 +365,7 @@
             this.btnRelatorio.Location = new System.Drawing.Point(261, 344);
             this.btnRelatorio.Name = "btnRelatorio";
             this.btnRelatorio.Size = new System.Drawing.Size(75, 23);
-            this.btnRelatorio.TabIndex = 25;
+            this.btnRelatorio.TabIndex = 13;
             this.btnRelatorio.Text = "Relatorio";
             this.btnRelatorio.UseVisualStyleBackColor = true;
             this.btnRelatorio.Click += new System.EventHandler(this.btnRelatorio_Click);
@@ -401,6 +401,7 @@
             this.Controls.Add(this.btnIniciarParadaCurta);
             this.Controls.Add(this.btnIniciarPomodoro);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FrmPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

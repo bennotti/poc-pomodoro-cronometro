@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -58,14 +59,31 @@ namespace Pomodoro.Cronometro.Windows.App
             txtQntPomodoro.Text = _relatorioDocumentDto.QntPomodoro.ToString();
             txtQntParadasCurtas.Text = _relatorioDocumentDto.QntParadaCurta.ToString();
             txtQntParadasLongas.Text = _relatorioDocumentDto.QntParadaLonga.ToString();
+
+            var totalTempoPomodoro = _relatorioDocumentDto.TotalTempoPomodoro;
+            var valorTempoTotalPomodoro = string.Empty;
+            if (totalTempoPomodoro.Days > 0){
+                valorTempoTotalPomodoro = $"{totalTempoPomodoro.Days} dias, ";
+            }
+
+            valorTempoTotalPomodoro = $"{valorTempoTotalPomodoro}{totalTempoPomodoro.Hours:00}:{totalTempoPomodoro.Minutes:00}:{totalTempoPomodoro.Seconds:00}";
+            
+            var totalTempoParadas = _relatorioDocumentDto.TotalTempoParadas;
+            var valorTempoTotalParada = string.Empty;
+            if (totalTempoParadas.Days > 0)
+            {
+                valorTempoTotalParada = $"{totalTempoParadas.Days} dias, ";
+            }
+            valorTempoTotalParada = $"{valorTempoTotalParada}{totalTempoParadas.Hours:00}:{totalTempoParadas.Minutes:00}:{totalTempoParadas.Seconds:00}";
+
+            txtTotalTempoPomodoro.Text = valorTempoTotalPomodoro;
+            txtTotalTempoParada.Text = valorTempoTotalParada;
         }
 
         void CarregarArquivos()
         {
             _relatorioDocumentDto = new RelatorioDocumentDto();
             _arquivosTask = new List<ArquivoTaskDto>();
-            _arquivosJson = Directory.GetFiles(txtDiretorio.Text, "*.json");
-
             _relatorioDocumentDto.QntArquivos = _arquivosJson.Count;
 
             foreach (string arquivo in _arquivosJson)
@@ -86,6 +104,9 @@ namespace Pomodoro.Cronometro.Windows.App
                 _relatorioDocumentDto.QntPomodoro += taskDocument.TotalPomodoros;
                 _relatorioDocumentDto.QntParadaCurta += taskDocument.TotalParadasCurtas;
                 _relatorioDocumentDto.QntParadaLonga += taskDocument.TotalParadasLongas;
+
+                _relatorioDocumentDto.TotalTempoPomodoro = _relatorioDocumentDto.TotalTempoPomodoro.Add(taskDocument.TotalTempoPomodoro);
+                _relatorioDocumentDto.TotalTempoParadas = _relatorioDocumentDto.TotalTempoParadas.Add(taskDocument.TotalTempoParadas);
             }
 
             dgvArquivos.DataSource = new BindingList<ArquivoTaskDto>(_arquivosTask);
@@ -104,6 +125,8 @@ namespace Pomodoro.Cronometro.Windows.App
                 MessageBox.Show("Informe a pasta das tarefas!");
                 return;
             }
+            
+            _arquivosJson = Directory.GetFiles(txtDiretorio.Text, "*.json").ToList();
 
             CarregarArquivos();
         }
@@ -111,6 +134,31 @@ namespace Pomodoro.Cronometro.Windows.App
         private void FrmRelatorio_Load(object sender, EventArgs e)
         {
             txtDiretorio.Text = String.Empty;
+        }
+
+        private void btnRemover_Click(object sender, EventArgs e)
+        {
+            int rowindex = dgvArquivos.CurrentCell.RowIndex;
+            _arquivosJson.RemoveAt(rowindex);
+            CarregarArquivos();
+        }
+
+        private void btnMarcarComoConcluido_Click(object sender, EventArgs e)
+        {
+            int rowindex = dgvArquivos.CurrentCell.RowIndex;
+            var arquivo = _arquivosJson[rowindex];
+            var taskDocument = AbrirTaskFileJson(arquivo);
+            taskDocument.Concluida = true;
+            using (FileStream fs = File.Create(arquivo))
+            {
+                var stringJson = JsonConvert.SerializeObject(taskDocument, Formatting.Indented);
+                byte[] info = new UTF8Encoding(true).GetBytes(stringJson);
+                // Add some information to the file.
+                fs.Write(info, 0, info.Length);
+            }
+            MessageBox.Show("Tarefa salva com sucesso!", "Pomodoro Cronometro");
+
+            CarregarArquivos();
         }
     }
 }
