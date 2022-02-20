@@ -37,17 +37,15 @@
             this.btnRemover = new System.Windows.Forms.Button();
             this.btnMarcarComoConcluido = new System.Windows.Forms.Button();
             this.dgvArquivos = new System.Windows.Forms.DataGridView();
-            this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.situacaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.arquivoTaskDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.qntParadasLongas = new System.Windows.Forms.TextBox();
+            this.txtQntParadasLongas = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.qntParadasCurtas = new System.Windows.Forms.TextBox();
+            this.txtQntParadasCurtas = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.txtQntPomodoro = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.qntNaoConcluidas = new System.Windows.Forms.TextBox();
+            this.txtQntNaoConcluidas = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.txtQntConcluidas = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -89,6 +87,9 @@
             this.label20 = new System.Windows.Forms.Label();
             this.txtDataInicio = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
+            this.arquivoTaskDtoBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArquivos)).BeginInit();
@@ -97,6 +98,7 @@
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.gbFiltro.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.arquivoTaskDtoBindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -193,9 +195,9 @@
             this.dgvArquivos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvArquivos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvArquivos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nomeDataGridViewTextBoxColumn,
-            this.situacaoDataGridViewTextBoxColumn});
-            this.dgvArquivos.DataSource = this.arquivoTaskDtoBindingSource;
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2});
+            this.dgvArquivos.DataSource = this.arquivoTaskDtoBindingSource1;
             this.dgvArquivos.Enabled = false;
             this.dgvArquivos.Location = new System.Drawing.Point(6, 22);
             this.dgvArquivos.Name = "dgvArquivos";
@@ -206,34 +208,15 @@
             this.dgvArquivos.Size = new System.Drawing.Size(412, 203);
             this.dgvArquivos.TabIndex = 0;
             // 
-            // nomeDataGridViewTextBoxColumn
-            // 
-            this.nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
-            this.nomeDataGridViewTextBoxColumn.HeaderText = "Nome";
-            this.nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
-            this.nomeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // situacaoDataGridViewTextBoxColumn
-            // 
-            this.situacaoDataGridViewTextBoxColumn.DataPropertyName = "Situacao";
-            this.situacaoDataGridViewTextBoxColumn.FillWeight = 40F;
-            this.situacaoDataGridViewTextBoxColumn.HeaderText = "Situação";
-            this.situacaoDataGridViewTextBoxColumn.Name = "situacaoDataGridViewTextBoxColumn";
-            this.situacaoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // arquivoTaskDtoBindingSource
-            // 
-            this.arquivoTaskDtoBindingSource.DataSource = typeof(Pomodoro.Cronometro.Windows.App.Dtos.ArquivoTaskDto);
-            // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.qntParadasLongas);
+            this.groupBox3.Controls.Add(this.txtQntParadasLongas);
             this.groupBox3.Controls.Add(this.label13);
-            this.groupBox3.Controls.Add(this.qntParadasCurtas);
+            this.groupBox3.Controls.Add(this.txtQntParadasCurtas);
             this.groupBox3.Controls.Add(this.label14);
             this.groupBox3.Controls.Add(this.txtQntPomodoro);
             this.groupBox3.Controls.Add(this.label15);
-            this.groupBox3.Controls.Add(this.qntNaoConcluidas);
+            this.groupBox3.Controls.Add(this.txtQntNaoConcluidas);
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.txtQntConcluidas);
             this.groupBox3.Controls.Add(this.label8);
@@ -246,16 +229,16 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Metricas";
             // 
-            // qntParadasLongas
+            // txtQntParadasLongas
             // 
-            this.qntParadasLongas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.qntParadasLongas.Location = new System.Drawing.Point(281, 81);
-            this.qntParadasLongas.Name = "qntParadasLongas";
-            this.qntParadasLongas.PlaceholderText = "0";
-            this.qntParadasLongas.ReadOnly = true;
-            this.qntParadasLongas.Size = new System.Drawing.Size(137, 23);
-            this.qntParadasLongas.TabIndex = 29;
-            this.qntParadasLongas.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtQntParadasLongas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtQntParadasLongas.Location = new System.Drawing.Point(281, 81);
+            this.txtQntParadasLongas.Name = "txtQntParadasLongas";
+            this.txtQntParadasLongas.PlaceholderText = "0";
+            this.txtQntParadasLongas.ReadOnly = true;
+            this.txtQntParadasLongas.Size = new System.Drawing.Size(137, 23);
+            this.txtQntParadasLongas.TabIndex = 29;
+            this.txtQntParadasLongas.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label13
             // 
@@ -267,16 +250,16 @@
             this.label13.TabIndex = 28;
             this.label13.Text = "Qnt. paradas longas";
             // 
-            // qntParadasCurtas
+            // txtQntParadasCurtas
             // 
-            this.qntParadasCurtas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.qntParadasCurtas.Location = new System.Drawing.Point(142, 81);
-            this.qntParadasCurtas.Name = "qntParadasCurtas";
-            this.qntParadasCurtas.PlaceholderText = "0";
-            this.qntParadasCurtas.ReadOnly = true;
-            this.qntParadasCurtas.Size = new System.Drawing.Size(133, 23);
-            this.qntParadasCurtas.TabIndex = 27;
-            this.qntParadasCurtas.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtQntParadasCurtas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtQntParadasCurtas.Location = new System.Drawing.Point(142, 81);
+            this.txtQntParadasCurtas.Name = "txtQntParadasCurtas";
+            this.txtQntParadasCurtas.PlaceholderText = "0";
+            this.txtQntParadasCurtas.ReadOnly = true;
+            this.txtQntParadasCurtas.Size = new System.Drawing.Size(133, 23);
+            this.txtQntParadasCurtas.TabIndex = 27;
+            this.txtQntParadasCurtas.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label14
             // 
@@ -311,16 +294,16 @@
             this.label15.TabIndex = 24;
             this.label15.Text = "Qnt. de pomodoros";
             // 
-            // qntNaoConcluidas
+            // txtQntNaoConcluidas
             // 
-            this.qntNaoConcluidas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.qntNaoConcluidas.Location = new System.Drawing.Point(281, 37);
-            this.qntNaoConcluidas.Name = "qntNaoConcluidas";
-            this.qntNaoConcluidas.PlaceholderText = "0";
-            this.qntNaoConcluidas.ReadOnly = true;
-            this.qntNaoConcluidas.Size = new System.Drawing.Size(137, 23);
-            this.qntNaoConcluidas.TabIndex = 17;
-            this.qntNaoConcluidas.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtQntNaoConcluidas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtQntNaoConcluidas.Location = new System.Drawing.Point(281, 37);
+            this.txtQntNaoConcluidas.Name = "txtQntNaoConcluidas";
+            this.txtQntNaoConcluidas.PlaceholderText = "0";
+            this.txtQntNaoConcluidas.ReadOnly = true;
+            this.txtQntNaoConcluidas.Size = new System.Drawing.Size(137, 23);
+            this.txtQntNaoConcluidas.TabIndex = 17;
+            this.txtQntNaoConcluidas.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label9
             // 
@@ -783,6 +766,24 @@
             this.label19.TabIndex = 20;
             this.label19.Text = "Data inicio";
             // 
+            // arquivoTaskDtoBindingSource1
+            // 
+            this.arquivoTaskDtoBindingSource1.DataSource = typeof(Pomodoro.Cronometro.Windows.App.Dtos.ArquivoTaskDto);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Nome";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Nome";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Situacao";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Situacao";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
             // FrmRelatorio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -818,6 +819,7 @@
             this.groupBox5.PerformLayout();
             this.gbFiltro.ResumeLayout(false);
             this.gbFiltro.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.arquivoTaskDtoBindingSource1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -834,15 +836,15 @@
         private System.Windows.Forms.Button btnMarcarComoConcluido;
         private System.Windows.Forms.DataGridView dgvArquivos;
         private System.Windows.Forms.Button btnFechar;
-        private System.Windows.Forms.TextBox qntNaoConcluidas;
+        private System.Windows.Forms.TextBox txtQntNaoConcluidas;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtQntConcluidas;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtQntArquivos;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox qntParadasLongas;
+        private System.Windows.Forms.TextBox txtQntParadasLongas;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox qntParadasCurtas;
+        private System.Windows.Forms.TextBox txtQntParadasCurtas;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtQntPomodoro;
         private System.Windows.Forms.Label label15;
@@ -884,5 +886,8 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn situacaoDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.BindingSource arquivoTaskDtoBindingSource1;
     }
 }
