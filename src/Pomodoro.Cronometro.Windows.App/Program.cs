@@ -19,7 +19,6 @@ namespace Pomodoro.Cronometro.Windows.App
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 
-
             var services = new ServiceCollection();
 
             ConfigureServices(services);

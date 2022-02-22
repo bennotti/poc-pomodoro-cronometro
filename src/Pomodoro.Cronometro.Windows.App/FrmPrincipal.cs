@@ -628,6 +628,9 @@ namespace Pomodoro.Cronometro.Windows.App
         {
             if (openDialog.ShowDialog() == DialogResult.OK) {
                 _arquivoJson = openDialog.FileName;
+            } else
+            {
+                return;
             }
 
             if (string.IsNullOrEmpty(_arquivoJson)) return;
