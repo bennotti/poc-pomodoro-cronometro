@@ -58,13 +58,16 @@
             this.btnAddPomodoro = new System.Windows.Forms.Button();
             this.btnMinusPomodoro = new System.Windows.Forms.Button();
             this.btnRelatorio = new System.Windows.Forms.Button();
+            this.lblCriadoEm = new System.Windows.Forms.Label();
+            this.lblUltimaAlteracao = new System.Windows.Forms.Label();
+            this.btnMiniPlayer = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnIniciarPomodoro
             // 
             this.btnIniciarPomodoro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnIniciarPomodoro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIniciarPomodoro.Location = new System.Drawing.Point(12, 235);
+            this.btnIniciarPomodoro.Location = new System.Drawing.Point(12, 287);
             this.btnIniciarPomodoro.Name = "btnIniciarPomodoro";
             this.btnIniciarPomodoro.Size = new System.Drawing.Size(131, 37);
             this.btnIniciarPomodoro.TabIndex = 1;
@@ -76,7 +79,7 @@
             // 
             this.btnIniciarParadaCurta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnIniciarParadaCurta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIniciarParadaCurta.Location = new System.Drawing.Point(149, 235);
+            this.btnIniciarParadaCurta.Location = new System.Drawing.Point(149, 287);
             this.btnIniciarParadaCurta.Name = "btnIniciarParadaCurta";
             this.btnIniciarParadaCurta.Size = new System.Drawing.Size(131, 37);
             this.btnIniciarParadaCurta.TabIndex = 2;
@@ -88,7 +91,7 @@
             // 
             this.btnIniciarParadaLonga.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnIniciarParadaLonga.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIniciarParadaLonga.Location = new System.Drawing.Point(286, 235);
+            this.btnIniciarParadaLonga.Location = new System.Drawing.Point(286, 287);
             this.btnIniciarParadaLonga.Name = "btnIniciarParadaLonga";
             this.btnIniciarParadaLonga.Size = new System.Drawing.Size(131, 37);
             this.btnIniciarParadaLonga.TabIndex = 3;
@@ -108,16 +111,16 @@
             // 
             // lblResumoContadores
             // 
-            this.lblResumoContadores.Location = new System.Drawing.Point(70, 9);
+            this.lblResumoContadores.Location = new System.Drawing.Point(126, 14);
             this.lblResumoContadores.Name = "lblResumoContadores";
-            this.lblResumoContadores.Size = new System.Drawing.Size(347, 23);
+            this.lblResumoContadores.Size = new System.Drawing.Size(291, 23);
             this.lblResumoContadores.TabIndex = 4;
             this.lblResumoContadores.Text = "0 pomodoros | 0 paradas curtas | 0 paradas longas";
             this.lblResumoContadores.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblTotalTempo
             // 
-            this.lblTotalTempo.Location = new System.Drawing.Point(12, 114);
+            this.lblTotalTempo.Location = new System.Drawing.Point(12, 117);
             this.lblTotalTempo.Name = "lblTotalTempo";
             this.lblTotalTempo.Size = new System.Drawing.Size(405, 23);
             this.lblTotalTempo.TabIndex = 5;
@@ -128,7 +131,7 @@
             // 
             this.lblDiaMes.AutoSize = true;
             this.lblDiaMes.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblDiaMes.Location = new System.Drawing.Point(12, 72);
+            this.lblDiaMes.Location = new System.Drawing.Point(12, 79);
             this.lblDiaMes.Name = "lblDiaMes";
             this.lblDiaMes.Size = new System.Drawing.Size(47, 20);
             this.lblDiaMes.TabIndex = 6;
@@ -139,7 +142,7 @@
             // 
             this.lblAno.AutoSize = true;
             this.lblAno.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblAno.Location = new System.Drawing.Point(12, 92);
+            this.lblAno.Location = new System.Drawing.Point(12, 99);
             this.lblAno.Name = "lblAno";
             this.lblAno.Size = new System.Drawing.Size(41, 20);
             this.lblAno.TabIndex = 7;
@@ -150,7 +153,7 @@
             // 
             this.lblDiaSemana.AutoSize = true;
             this.lblDiaSemana.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblDiaSemana.Location = new System.Drawing.Point(12, 55);
+            this.lblDiaSemana.Location = new System.Drawing.Point(12, 62);
             this.lblDiaSemana.Name = "lblDiaSemana";
             this.lblDiaSemana.Size = new System.Drawing.Size(61, 17);
             this.lblDiaSemana.TabIndex = 8;
@@ -162,7 +165,7 @@
             this.btnNovo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnNovo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNovo.Image = ((System.Drawing.Image)(resources.GetObject("btnNovo.Image")));
-            this.btnNovo.Location = new System.Drawing.Point(288, 307);
+            this.btnNovo.Location = new System.Drawing.Point(288, 359);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(39, 31);
             this.btnNovo.TabIndex = 8;
@@ -174,7 +177,7 @@
             this.btnZerar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnZerar.Enabled = false;
             this.btnZerar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnZerar.Location = new System.Drawing.Point(149, 307);
+            this.btnZerar.Location = new System.Drawing.Point(149, 359);
             this.btnZerar.Name = "btnZerar";
             this.btnZerar.Size = new System.Drawing.Size(131, 31);
             this.btnZerar.TabIndex = 7;
@@ -187,7 +190,7 @@
             this.btnParar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnParar.Enabled = false;
             this.btnParar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnParar.Location = new System.Drawing.Point(12, 307);
+            this.btnParar.Location = new System.Drawing.Point(12, 359);
             this.btnParar.Name = "btnParar";
             this.btnParar.Size = new System.Drawing.Size(131, 31);
             this.btnParar.TabIndex = 6;
@@ -199,7 +202,7 @@
             // 
             this.lblHora.AutoSize = true;
             this.lblHora.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblHora.Location = new System.Drawing.Point(12, 38);
+            this.lblHora.Location = new System.Drawing.Point(12, 45);
             this.lblHora.Name = "lblHora";
             this.lblHora.Size = new System.Drawing.Size(56, 17);
             this.lblHora.TabIndex = 12;
@@ -217,7 +220,7 @@
             this.ckbAlwaysOnTop.AutoSize = true;
             this.ckbAlwaysOnTop.Checked = true;
             this.ckbAlwaysOnTop.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckbAlwaysOnTop.Location = new System.Drawing.Point(12, 347);
+            this.ckbAlwaysOnTop.Location = new System.Drawing.Point(12, 399);
             this.ckbAlwaysOnTop.Name = "ckbAlwaysOnTop";
             this.ckbAlwaysOnTop.Size = new System.Drawing.Size(101, 19);
             this.ckbAlwaysOnTop.TabIndex = 11;
@@ -229,7 +232,7 @@
             // 
             this.btnSair.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSair.Location = new System.Drawing.Point(342, 344);
+            this.btnSair.Location = new System.Drawing.Point(342, 396);
             this.btnSair.Name = "btnSair";
             this.btnSair.Size = new System.Drawing.Size(75, 23);
             this.btnSair.TabIndex = 14;
@@ -242,7 +245,7 @@
             this.btnContinuar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnContinuar.Enabled = false;
             this.btnContinuar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnContinuar.Location = new System.Drawing.Point(12, 278);
+            this.btnContinuar.Location = new System.Drawing.Point(12, 330);
             this.btnContinuar.Name = "btnContinuar";
             this.btnContinuar.Size = new System.Drawing.Size(354, 23);
             this.btnContinuar.TabIndex = 4;
@@ -256,7 +259,7 @@
             this.ckbSpeakWhenFinish.AutoSize = true;
             this.ckbSpeakWhenFinish.Checked = true;
             this.ckbSpeakWhenFinish.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckbSpeakWhenFinish.Location = new System.Drawing.Point(119, 347);
+            this.ckbSpeakWhenFinish.Location = new System.Drawing.Point(119, 399);
             this.ckbSpeakWhenFinish.Name = "ckbSpeakWhenFinish";
             this.ckbSpeakWhenFinish.Size = new System.Drawing.Size(121, 19);
             this.ckbSpeakWhenFinish.TabIndex = 12;
@@ -268,7 +271,7 @@
             this.btnConfiguracao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnConfiguracao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfiguracao.Image = ((System.Drawing.Image)(resources.GetObject("btnConfiguracao.Image")));
-            this.btnConfiguracao.Location = new System.Drawing.Point(372, 278);
+            this.btnConfiguracao.Location = new System.Drawing.Point(372, 330);
             this.btnConfiguracao.Name = "btnConfiguracao";
             this.btnConfiguracao.Size = new System.Drawing.Size(45, 23);
             this.btnConfiguracao.TabIndex = 5;
@@ -280,7 +283,7 @@
             this.btnAbrir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnAbrir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAbrir.Image = ((System.Drawing.Image)(resources.GetObject("btnAbrir.Image")));
-            this.btnAbrir.Location = new System.Drawing.Point(333, 307);
+            this.btnAbrir.Location = new System.Drawing.Point(333, 359);
             this.btnAbrir.Name = "btnAbrir";
             this.btnAbrir.Size = new System.Drawing.Size(39, 31);
             this.btnAbrir.TabIndex = 9;
@@ -292,7 +295,7 @@
             this.btnSalvar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSalvar.Image = ((System.Drawing.Image)(resources.GetObject("btnSalvar.Image")));
-            this.btnSalvar.Location = new System.Drawing.Point(378, 307);
+            this.btnSalvar.Location = new System.Drawing.Point(378, 359);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(39, 31);
             this.btnSalvar.TabIndex = 10;
@@ -313,25 +316,25 @@
             // 
             // txtDescricao
             // 
-            this.txtDescricao.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtDescricao.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescricao.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDescricao.Location = new System.Drawing.Point(33, 140);
+            this.txtDescricao.Location = new System.Drawing.Point(12, 165);
             this.txtDescricao.Multiline = true;
             this.txtDescricao.Name = "txtDescricao";
             this.txtDescricao.PlaceholderText = "Descrição da tarefa";
             this.txtDescricao.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDescricao.Size = new System.Drawing.Size(384, 89);
+            this.txtDescricao.Size = new System.Drawing.Size(405, 98);
             this.txtDescricao.TabIndex = 0;
             // 
             // ckbConcluida
             // 
-            this.ckbConcluida.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ckbConcluida.AutoSize = true;
-            this.ckbConcluida.Location = new System.Drawing.Point(12, 178);
+            this.ckbConcluida.Location = new System.Drawing.Point(12, 140);
             this.ckbConcluida.Name = "ckbConcluida";
-            this.ckbConcluida.Size = new System.Drawing.Size(15, 14);
+            this.ckbConcluida.Size = new System.Drawing.Size(112, 19);
             this.ckbConcluida.TabIndex = 15;
+            this.ckbConcluida.Text = "Tarefa concluída";
             this.ckbConcluida.UseVisualStyleBackColor = true;
             this.ckbConcluida.CheckedChanged += new System.EventHandler(this.ckbConcluida_CheckedChanged);
             // 
@@ -340,7 +343,7 @@
             this.btnAddPomodoro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddPomodoro.Location = new System.Drawing.Point(12, 9);
             this.btnAddPomodoro.Name = "btnAddPomodoro";
-            this.btnAddPomodoro.Size = new System.Drawing.Size(23, 23);
+            this.btnAddPomodoro.Size = new System.Drawing.Size(32, 32);
             this.btnAddPomodoro.TabIndex = 16;
             this.btnAddPomodoro.Text = "+";
             this.btnAddPomodoro.UseVisualStyleBackColor = true;
@@ -350,9 +353,9 @@
             // 
             this.btnMinusPomodoro.Enabled = false;
             this.btnMinusPomodoro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMinusPomodoro.Location = new System.Drawing.Point(41, 9);
+            this.btnMinusPomodoro.Location = new System.Drawing.Point(50, 9);
             this.btnMinusPomodoro.Name = "btnMinusPomodoro";
-            this.btnMinusPomodoro.Size = new System.Drawing.Size(23, 23);
+            this.btnMinusPomodoro.Size = new System.Drawing.Size(32, 32);
             this.btnMinusPomodoro.TabIndex = 17;
             this.btnMinusPomodoro.Text = "-";
             this.btnMinusPomodoro.UseVisualStyleBackColor = true;
@@ -362,7 +365,7 @@
             // 
             this.btnRelatorio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRelatorio.Location = new System.Drawing.Point(261, 344);
+            this.btnRelatorio.Location = new System.Drawing.Point(261, 396);
             this.btnRelatorio.Name = "btnRelatorio";
             this.btnRelatorio.Size = new System.Drawing.Size(75, 23);
             this.btnRelatorio.TabIndex = 13;
@@ -370,11 +373,48 @@
             this.btnRelatorio.UseVisualStyleBackColor = true;
             this.btnRelatorio.Click += new System.EventHandler(this.btnRelatorio_Click);
             // 
+            // lblCriadoEm
+            // 
+            this.lblCriadoEm.AutoSize = true;
+            this.lblCriadoEm.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblCriadoEm.Location = new System.Drawing.Point(12, 266);
+            this.lblCriadoEm.Name = "lblCriadoEm";
+            this.lblCriadoEm.Size = new System.Drawing.Size(142, 17);
+            this.lblCriadoEm.TabIndex = 18;
+            this.lblCriadoEm.Text = "Criado em: 00/00/0000";
+            this.lblCriadoEm.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblUltimaAlteracao
+            // 
+            this.lblUltimaAlteracao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblUltimaAlteracao.AutoSize = true;
+            this.lblUltimaAlteracao.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblUltimaAlteracao.Location = new System.Drawing.Point(241, 266);
+            this.lblUltimaAlteracao.Name = "lblUltimaAlteracao";
+            this.lblUltimaAlteracao.Size = new System.Drawing.Size(176, 17);
+            this.lblUltimaAlteracao.TabIndex = 19;
+            this.lblUltimaAlteracao.Text = "Ultima alteração: 00/00/0000";
+            this.lblUltimaAlteracao.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // btnMiniPlayer
+            // 
+            this.btnMiniPlayer.Enabled = false;
+            this.btnMiniPlayer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMiniPlayer.Location = new System.Drawing.Point(88, 9);
+            this.btnMiniPlayer.Name = "btnMiniPlayer";
+            this.btnMiniPlayer.Size = new System.Drawing.Size(32, 32);
+            this.btnMiniPlayer.TabIndex = 20;
+            this.btnMiniPlayer.Text = "[ ]";
+            this.btnMiniPlayer.UseVisualStyleBackColor = true;
+            // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(427, 371);
+            this.ClientSize = new System.Drawing.Size(427, 423);
+            this.Controls.Add(this.btnMiniPlayer);
+            this.Controls.Add(this.lblUltimaAlteracao);
+            this.Controls.Add(this.lblCriadoEm);
             this.Controls.Add(this.btnRelatorio);
             this.Controls.Add(this.btnMinusPomodoro);
             this.Controls.Add(this.btnAddPomodoro);
@@ -444,5 +484,8 @@
         private System.Windows.Forms.Button btnAddPomodoro;
         private System.Windows.Forms.Button btnMinusPomodoro;
         private System.Windows.Forms.Button btnRelatorio;
+        private System.Windows.Forms.Label lblCriadoEm;
+        private System.Windows.Forms.Label lblUltimaAlteracao;
+        private System.Windows.Forms.Button btnMiniPlayer;
     }
 }

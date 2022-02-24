@@ -40,7 +40,11 @@ namespace Pomodoro.Cronometro.Windows.App
         public FrmPrincipal(FrmConfiguracao frmConfiguracao, FrmRelatorio frmRelatorio)
         {
             InitializeComponent();
-            _taskDocument = new TaskPomodoroJsonDto();
+            _taskDocument = new TaskPomodoroJsonDto
+            {
+                CriadoEm = DateTime.Now,
+                UltimaAlteracao = DateTime.Now
+            };
             _synthesizer = new SpeechSynthesizer();
             _synthesizer.SetOutputToDefaultAudioDevice();
             _synthesizer.Rate = 3;
@@ -244,6 +248,9 @@ namespace Pomodoro.Cronometro.Windows.App
                         new CultureInfo("pt-BR"));
             lblAno.Text = DateTime.Now.ToString("yyyy",
                         new CultureInfo("pt-BR"));
+
+            lblCriadoEm.Text = _taskDocument.CriadoEm.HasValue ? $"Criado em: {_taskDocument.CriadoEm.Value:dd/MM/yyyy}" : "";
+            lblUltimaAlteracao.Text = _taskDocument.UltimaAlteracao.HasValue ? $"Ultima alteração: {_taskDocument.UltimaAlteracao.Value:dd/MM/yyyy}" : "";
 
             lblResumoContadores.Text = $@"{_taskDocument.TotalPomodoros} pomodoros | {_taskDocument.TotalParadasCurtas} paradas curtas | {_taskDocument.TotalParadasLongas} paradas longas";
 
@@ -637,6 +644,16 @@ namespace Pomodoro.Cronometro.Windows.App
 
             var jsonString = File.ReadAllText(_arquivoJson);
             _taskDocument = JsonConvert.DeserializeObject<TaskPomodoroJsonDto>(jsonString);
+
+            FileInfo fi = new FileInfo(_arquivoJson);
+            if (!_taskDocument.CriadoEm.HasValue)
+            {
+                _taskDocument.CriadoEm = fi.CreationTime;
+            }
+            if (!_taskDocument.UltimaAlteracao.HasValue)
+            {
+                _taskDocument.UltimaAlteracao = fi.LastWriteTime;
+            }
 
             AtualizaComponentesComTaskDocument();
 

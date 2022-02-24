@@ -9,6 +9,8 @@ namespace Pomodoro.Cronometro.Windows.App.Dtos
     {
         public bool Concluida { get; set; } = false;
         public string Identificador { get; set; } = Guid.NewGuid().ToString();
+        public DateTime? CriadoEm { get; set; }
+        public DateTime? UltimaAlteracao { get; set; }
         public string Descricao { get; set; } = "";
         public int TotalPomodoros { get; set; } = 0;
         public int TotalParadasCurtas { get; set; } = 0;
